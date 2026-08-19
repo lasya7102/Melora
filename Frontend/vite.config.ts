@@ -22,7 +22,7 @@ export default defineConfig({
 
     proxy: {
       "/api": {
-        target: "https://melora1.onrender.com",
+        target: "https://melora1.onrender.com/api",
         changeOrigin: true,
       },
     },
