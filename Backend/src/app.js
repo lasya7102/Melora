@@ -6,9 +6,11 @@ const authRoutes = require('./routes/auth.routes.js');
 const musicRoutes = require('./routes/music.routes.js');
 
 const app = express();
+
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://YOUR-VERCEL-DOMAIN.vercel.app"
+    "https://melora-ymi7-cfb0xrkk0-lasyanimma998-7541s-projects.vercel.app",
+    "https://melora-ymi7-dikuy5bzx-lasyanimma998-7541s-projects.vercel.app"
 ];
 
 app.use(cors({
@@ -19,17 +21,16 @@ app.use(cors({
             callback(new Error("Not allowed by CORS"));
         }
     },
-    credentials: true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
-// CORS - allow React frontend
 
-// To use req.body data
+app.options("*", cors());
+
 app.use(express.json());
-
-// To send data to cookies and read data from cookies
 app.use(cookieParser());
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/music', musicRoutes);
 
