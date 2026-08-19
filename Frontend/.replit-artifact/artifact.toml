@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Melora"
+description = "A premium music streaming frontend for discovering, playing, organizing, and managing music through the user's existing backend APIs."
+version = "1.0.0"
+id = "artifacts/melora"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21536
+
+[services.development]
+run = "pnpm --filter @workspace/melora run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/melora", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/melora/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21536"
+BASE_PATH = "/"
