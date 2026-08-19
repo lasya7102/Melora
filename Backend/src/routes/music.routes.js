@@ -14,8 +14,8 @@ router.post('/upload',authMiddleWare.authArtist,upload.fields([
     { name:"coverImage", maxCount:1 }
 ]),musicController.createMusic);
 router.post('/album',authMiddleWare.authArtist,upload.single("coverImage"),musicController.createAlbum);
-router.get('/',authMiddleWare.authAlbum,musicController.getAll);
-router.get('/albums',authMiddleWare.authAlbum,musicController.getAlbums);
+router.get('/',authMiddleWare.authUser,musicController.getAll);
+router.get('/albums',authMiddleWare.authUser,musicController.getAlbums);
 router.get('/albums/:albumId',authMiddleWare.authAlbum,musicController.getAlbumById);
 router.delete('/delete/:id',authMiddleWare.authAlbum,musicController.DeleteSong);
 router.patch('/update/:id',authMiddleWare.authAlbum,upload.single("coverImage"),musicController.UpdateSong);
