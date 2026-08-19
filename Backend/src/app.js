@@ -6,12 +6,22 @@ const authRoutes = require('./routes/auth.routes.js');
 const musicRoutes = require('./routes/music.routes.js');
 
 const app = express();
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://YOUR-VERCEL-DOMAIN.vercel.app"
+];
 
-// CORS - allow React frontend
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true
 }));
+// CORS - allow React frontend
 
 // To use req.body data
 app.use(express.json());
